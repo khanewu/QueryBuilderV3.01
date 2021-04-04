@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Schema\Builder;
 
 class SchemaRepository
 {
@@ -18,21 +18,14 @@ class SchemaRepository
     public function get()
     {
         $table= $this->table;
-        $sql = <<< EOD
-        SELECT  COLUMN_NAME,  DATA_TYPE
-            FROM
-                INFORMATION_SCHEMA.COLUMNS
-            WHERE
-                table_name =
-        EOD;
-        $sql = $sql .'`'. $table.'`';
-        // return DB::select(DB::raw($sql));
 
         $result =  DB::getSchemaBuilder()->getColumnListing($table);
+        // return $result;
         $arr = [];
-        foreach ($result as  $value) {
-            $arr[]['name'] = $value;
-            $arr[]['type'] = DB::getSchemaBuilder()->getColumnType($table, $value);
+
+        foreach ($result as $key=> $value) {
+            $arr[$key]['name'] = $value;
+            $arr[$key]['type'] = DB::getSchemaBuilder()->getColumnType($table, $value);
         }
         return $arr;
     }

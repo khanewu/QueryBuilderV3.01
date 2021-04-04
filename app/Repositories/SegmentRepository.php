@@ -21,8 +21,8 @@ class SegmentRepository
         extract($inputArray);
         $new= new SchemaRepository($segment_table);
         $columns = $new->get();
-        dd($columns);
-        $queryBuilder = new QueryBuilder();
+        // dd($columns);
+        $queryBuilder = new QueryBuilder($columns);
         if($query = $queryBuilder->generate($segment_logic, $columns)){
             $segment = new Segment();
             $segment->name = $segment_name;

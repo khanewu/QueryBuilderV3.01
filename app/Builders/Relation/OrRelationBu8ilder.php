@@ -7,9 +7,11 @@ use App\Builders\Logic\BuildLogic;
 class  OrRelationBu8ilder implements RelationBuilderInterface{
     private $query = [];
     private $string = "";
-    public function __construct($queryArray)
+    private $columns = [];
+    public function __construct($queryArray, $columns)
     {
         $this->query= $queryArray;
+        $this->columns= $columns;
     }
     public function set($queryArray)
     {

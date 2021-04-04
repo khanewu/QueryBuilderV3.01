@@ -5,21 +5,13 @@ namespace App\Builders\Logic;
 class  BuildLogic{
     private $query = [];
     private $string = "";
-    public function __construct($logic)
+    private $columns = [];
+    public function __construct($logic, $columns)
     {
         $this->query= $logic;
+        $this->columns= $columns;
     }
-    public function set($logic)
-    {
-        $this->query= $logic;
-    }
-    private function __isArray($data)
-    {
-        if(is_array($data) && is_array($data[0])){
-            return true;
-        }
-        return false;
-    }
+
     public function build(){
         $str = "";
         dd($this->query);

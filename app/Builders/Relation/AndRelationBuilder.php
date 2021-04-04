@@ -7,9 +7,11 @@ use App\Builders\Logic\BuildLogic;
 class  AndRelationBuilder implements RelationBuilderInterface{
     private $query = [];
     private $string = "";
-    public function __construct($queryArray)
+    private $columns = [];
+    public function __construct($queryArray, $columns)
     {
         $this->query= $queryArray;
+        $this->columns= $columns;
     }
     public function set($queryArray)
     {
@@ -25,10 +27,10 @@ class  AndRelationBuilder implements RelationBuilderInterface{
     private function __buildLogicOrOrRelation($data)
     {
         if(! $this->__isArray($this->query)){
-            $logic = new BuildLogic($this->query);
+            $logic = new BuildLogic($this->query, $this->columns);
             return $logic->build();
         }
-        $orRelation = new OrRelationBu8ilder($data);
+        $orRelation = new OrRelationBu8ilder($data, $this->columns);
         return $orRelation->build();
     }
 
