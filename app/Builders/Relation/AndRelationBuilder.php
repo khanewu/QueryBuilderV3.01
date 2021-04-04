@@ -25,12 +25,17 @@ class  AndRelationBuilder implements RelationBuilderInterface{
         }
         return false;
     }
+    private function __buildLogic($data){
+        if(! $this->__isArray($data)){
+            $logic = new BuildLogic($data , $this->columns);
+            return $logic->build();
+        }
+        return false;
+    }
     private function __buildLogicOrOrRelation($data)
     {
-        if(! $this->__isArray($this->query)){
-            print_r($this->query);
-            $logic = new BuildLogic($this->query, $this->columns);
-            return $logic->build();
+        if($result = $this->__buildLogic($data)){
+            return $result;
         }
         $orRelation = new OrRelationBuilder($data, $this->columns);
         return $orRelation->build();
@@ -39,9 +44,8 @@ class  AndRelationBuilder implements RelationBuilderInterface{
     public function build(){
         $start = ' ( '; $end=' ) ';
         $str = [];
-        if(! $this->__isArray($this->query)){
-            $logic = new BuildLogic($this->query, $this->columns);
-            return $logic->build();
+        if($result = $this->__buildLogic($this->query)){
+            return $result;
         }
         foreach($this->query as $value){
             $str[] = $this->__buildLogicOrOrRelation($value);
