@@ -19,20 +19,26 @@ class SegmentRepository
     public function create($inputArray)
     {
         extract($inputArray);
-        $new= new SchemaRepository($segment_table);
-        $columns = $new->get();
-        // dd($columns);
+
+        $tableSchema= new SchemaRepository($segment_table);
+        $columns = $tableSchema->get();
+
         $queryBuilder = new QueryBuilder($columns);
+        // var_dump($columns);
         if($query = $queryBuilder->generate($segment_logic, $columns)){
+
+            $query = 'SELECT * FROM '.$segment_table." WHERE ".$query;
+
             $segment = new Segment();
+            $segment->query = $query;
             $segment->name = $segment_name;
             $segment->table = $segment_table;
-            $segment->query = $query;
-            $segment->requested_segment_logic = $segment_logic;
+            $segment->requested_segment_logic = json_encode($segment_logic);
+            $segment->save();
             return $segment;
         }
         return false;
-        //return YourModel::class;
+
     }
     public function update($inputArray, $segmentId)
     {
@@ -45,7 +51,9 @@ class SegmentRepository
             $segment->name = $segment_name;
         }
         if( isset($segment_logic) && is_array($segment_logic)){
-            if($query = "QueryBuilderInstance"){
+            $queryBuilder = new QueryBuilder($columns);
+            if($query = $queryBuilder->generate($segment_logic, $columns)){
+                $query = 'SELECT * FROM '.$segment_table." WHERE ".$query;
                 $segment->query = $query;
                 $segment->requested_segment_logic = $segment_logic;
             }

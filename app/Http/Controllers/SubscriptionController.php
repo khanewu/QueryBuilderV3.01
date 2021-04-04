@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Subscription;
-use Illuminate\Http\Request;
+use App\Http\Requests\SegmentRequest;
+use App\Http\Requests\SubscriptionRequest;
+use App\Repositories\SubscriptionRepository;
 
 class SubscriptionController extends Controller
 {
@@ -12,9 +13,15 @@ class SubscriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    // function __construct() {
+
+    // }
+
+    public function index(SubscriptionRepository $repo)
     {
         //
+        return response()->json($repo->get());
     }
 
     /**
@@ -24,7 +31,7 @@ class SubscriptionController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.createSubscriber');
     }
 
     /**
@@ -33,53 +40,56 @@ class SubscriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+    public function store( SubscriptionRequest $request, SubscriptionRepository $segment )
     {
-        //
+        $input = $this->__processSegmentRequest($request);
+        $result =  $segment->create($input);
+        return response()->json($result);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Subscription  $subscription
+     * @param  \App\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function show(Subscription $subscription)
+    public function show(SubscriptionRepository $segment, $id)
     {
         //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Subscription  $subscription
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Subscription $subscription)
-    {
-        //
+        $result = $segment->getById($id);
+        return response()->json($result);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Subscription  $subscription
+     * @param  \App\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subscription $subscription)
+    public function update(SegmentRequest $request, SubscriptionRepository $segment, $id)
     {
-        //
+        $input = $this->__processSegmentRequest($request);
+        $result = $segment->update($input, $id);
+        return response()->json($result);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Subscription  $subscription
+     * @param  \App\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subscription $subscription)
+    public function destroy( SubscriptionRepository $segment, $id)
     {
-        //
+        $rsult = $segment->delete($id);
+        return response()->json(['status'=>'Success']);
     }
+    public function listUsersBySegments( SubscriptionRepository $segment, $segmentId)
+    {
+        $result = $segment->getSubscribersBySegmentId($segmentId);
+        return response()->json($result);
+    }
+
 }

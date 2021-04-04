@@ -3,7 +3,6 @@ namespace App\Builders\Relation;
 
 use App\Builders\Interfaces\RelationBuilderInterface;
 use App\Builders\Logic\BuildLogic;
-use App\Builders\Relation\OrRelationBuilder;
 
 class  AndRelationBuilder implements RelationBuilderInterface{
     private $query = [];
@@ -32,7 +31,7 @@ class  AndRelationBuilder implements RelationBuilderInterface{
             $logic = new BuildLogic($this->query, $this->columns);
             return $logic->build();
         }
-        $orRelation = new OrRelationBuilder($data, $this->columns);
+        $orRelation = new OrRelationBu8ilder($data, $this->columns);
         return $orRelation->build();
     }
 

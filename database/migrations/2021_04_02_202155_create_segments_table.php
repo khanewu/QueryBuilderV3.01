@@ -18,8 +18,8 @@ class CreateSegmentsTable extends Migration
             $table->string('name');
             $table->string('table');
             // $table->string('slug');
-            $table->string('query');
-            $table->string('requested_segment_logic');
+            $table->mediumText('query');
+            $table->mediumText('requested_segment_logic');
 
             $table->timestamps();
         });

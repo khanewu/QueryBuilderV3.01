@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('segment','SegmentController');
+Route::apiResource('subscription','SubscriptionController');
+Route::get('segment/{id}/subscribers','SubscriptionController@listUsersBySegments')->name('segment.subscribers');

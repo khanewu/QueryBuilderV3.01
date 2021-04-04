@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SegmentRequest;
 use App\Repositories\SegmentRepository;
 use App\Segment;
-use Illuminate\Http\Request;
 
 class SegmentController extends Controller
 {
@@ -22,7 +21,7 @@ class SegmentController extends Controller
     public function index(SegmentRepository $repo)
     {
         //
-        return response()->json($repo->getSegments());
+        return response()->json($repo->get());
     }
 
     /**
@@ -46,16 +45,18 @@ class SegmentController extends Controller
         // if(isset($request->segment_name)){
         //     $result['segment_name'] = $request->segment_name;
         // }
-        if(isset($request->segment_logic)){
+        if(isset($request->segment_logic) && ! is_array($request->segment_logic)){
             $result['segment_logic'] = json_decode($request->segment_logic);
         }
         return $result;
     }
     public function store( SegmentRequest $request, SegmentRepository $segment )
     {
-        $input = $this->__processSegmentRequest($request);
+        $input = $request->input();
+        // $input = $this->__processSegmentRequest($request);
+
         $result =  $segment->create($input);
-        return $result['query'];
+        return response()->json($result);
     }
 
     /**
@@ -67,7 +68,8 @@ class SegmentController extends Controller
     public function show(SegmentRepository $segment, $id)
     {
         //
-        return $segment->getById($id);
+        $result = $segment->getById($id);
+        return response()->json($result);
     }
 
     /**
@@ -80,7 +82,8 @@ class SegmentController extends Controller
     public function update(SegmentRequest $request, SegmentRepository $segment, $id)
     {
         $input = $this->__processSegmentRequest($request);
-        return $segment->update($input, $id);
+        $result = $segment->update($input, $id);
+        return response()->json($result);
     }
 
     /**
@@ -91,6 +94,7 @@ class SegmentController extends Controller
      */
     public function destroy( SegmentRepository $segment, $id)
     {
-        return $segment->delete($id);
+        $result = $segment->delete($id);
+        return response()->json($result);
     }
 }

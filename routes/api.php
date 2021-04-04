@@ -20,5 +20,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('api.')->group(function () {
     Route::apiResource('segment','SegmentController');
+    Route::apiResource('subscription','SubscriptionController');
+    Route::get('segment/{id}/subscribers','SubscriptionController@listUsersBySegments')->name('segment.subscribers');
 });
-    

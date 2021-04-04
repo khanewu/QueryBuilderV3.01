@@ -3,9 +3,9 @@ namespace App\Builders\Relation;
 
 use App\Builders\Interfaces\RelationBuilderInterface;
 use App\Builders\Logic\BuildLogic;
-use App\Builders\Relation\OrRelationBuilder;
+use App\Builders\Relation\AndRelationBuilder;
 
-class  AndRelationBuilder implements RelationBuilderInterface{
+class  OrRelationBuilder implements RelationBuilderInterface{
     private $query = [];
     private $string = "";
     private $columns = [];
@@ -28,11 +28,10 @@ class  AndRelationBuilder implements RelationBuilderInterface{
     private function __buildLogicOrOrRelation($data)
     {
         if(! $this->__isArray($this->query)){
-            print_r($this->query);
-            $logic = new BuildLogic($this->query, $this->columns);
+            $logic = new BuildLogic($this->query , $this->columns);
             return $logic->build();
         }
-        $orRelation = new OrRelationBuilder($data, $this->columns);
+        $orRelation = new AndRelationBuilder($data, $this->columns);
         return $orRelation->build();
     }
 
@@ -46,7 +45,7 @@ class  AndRelationBuilder implements RelationBuilderInterface{
         foreach($this->query as $value){
             $str[] = $this->__buildLogicOrOrRelation($value);
         }
-        // dd($str);
-        return $start. join(" AND ",$str) . $end;
+        $str = $start. join(" OR ",$str) . $end;
+        return $str;
     }
 }

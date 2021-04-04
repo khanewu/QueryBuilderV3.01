@@ -26,14 +26,14 @@ class  TextLogicBuilder{
     }
     private function setIs($field, $value){
         $field = " ".$field." ";
-        $op = " IS ";
+        $op = " = ";
         $value = " '".$value."' ";
         return $field.$op.$value;
     }
     private function setIsNot($field, $value){
 
         $field = " ".$field." ";
-        $op = " IS NOT ";
+        $op = " != ";
         $value = " '".$value."' ";
         return $field.$op.$value;
 

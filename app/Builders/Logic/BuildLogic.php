@@ -14,22 +14,19 @@ class  BuildLogic{
         $this->columns= $columns;
     }
     public function build(){
-        // dd($this->columns);
-        if(count($this->query)!==3){
+        if(count($this->query)!==3 || ! array_key_exists ( $this->query[0] , $this->columns )){
             return false;
         }
         $field= $this->query[0];
-        if(! isset($this->columns[$field])){
-            return false;
-        }
         $type = $this->columns[$field];
 
+        // var_dump($type);
         if(stripos($type,"string")!==false || stripos($type,"text")!==false){
+
             $text= new TextLogicBuilder($this->query, $this->columns);
             return $text->buildLogic();
         }
         if(stripos($type,"date")!==false){
-            // dd($this->columns);
             $date = new DateLogicBuilder($this->query, $this->columns);
             return  $date->buildLogic();
         }

@@ -18,10 +18,10 @@ class CreateSubscriptionsTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('slug');
+            // $table->string('slug');
             $table->string('email');
             $table->date('birth_day');
-            
+
             $table->timestamps();
         });
     }
