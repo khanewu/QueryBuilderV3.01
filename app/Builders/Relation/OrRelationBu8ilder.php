@@ -27,10 +27,10 @@ class  OrRelationBu8ilder implements RelationBuilderInterface{
     private function __buildLogicOrOrRelation($data)
     {
         if(! $this->__isArray($this->query)){
-            $logic = new BuildLogic($this->query);
+            $logic = new BuildLogic($this->query , $this->columns);
             return $logic->build();
         }
-        $orRelation = new OrRelationBu8ilder($data);
+        $orRelation = new OrRelationBu8ilder($data, $this->columns);
         return $orRelation->build();
     }
 
@@ -38,7 +38,7 @@ class  OrRelationBu8ilder implements RelationBuilderInterface{
         $start = ' ( '; $end=' ) ';
         $str = [];
         if(! $this->__isArray($this->query)){
-            $logic = new BuildLogic($this->query);
+            $logic = new BuildLogic($this->query, $this->columns);
             return $logic->build();
         }
         foreach($this->query as $value){

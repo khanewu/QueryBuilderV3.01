@@ -38,7 +38,7 @@ class  AndRelationBuilder implements RelationBuilderInterface{
         $start = ' ( '; $end=' ) ';
         $str = [];
         if(! $this->__isArray($this->query)){
-            $logic = new BuildLogic($this->query);
+            $logic = new BuildLogic($this->query, $this->columns);
             return $logic->build();
         }
         foreach($this->query as $value){

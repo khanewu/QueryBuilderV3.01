@@ -24,8 +24,7 @@ class SchemaRepository
         $arr = [];
 
         foreach ($result as $key=> $value) {
-            $arr[$key]['name'] = $value;
-            $arr[$key]['type'] = DB::getSchemaBuilder()->getColumnType($table, $value);
+            $arr[$value] = DB::getSchemaBuilder()->getColumnType($table, $value);
         }
         return $arr;
     }
