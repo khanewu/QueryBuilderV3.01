@@ -16,10 +16,11 @@ class CreateSegmentsTable extends Migration
         Schema::create('segments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('table');
+            // $table->string('slug');
             $table->string('query');
-            $table->string('logic_requested_json');
-            
+            $table->string('requested_segment_logic');
+
             $table->timestamps();
         });
     }

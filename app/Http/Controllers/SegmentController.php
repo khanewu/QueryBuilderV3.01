@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SegmentRequest;
+use App\Repositories\SegmentRepository;
 use App\Segment;
 use Illuminate\Http\Request;
 
@@ -18,10 +19,10 @@ class SegmentController extends Controller
 
     // }
 
-    public function index()
+    public function index(SegmentRepository $repo)
     {
         //
-        return "Hello World";
+        return response()->json($repo->getSegments());
     }
 
     /**
@@ -40,9 +41,20 @@ class SegmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( SegmentRequest $request )
+    private function __processSegmentRequest($request){
+        $result = $request->input();
+        // if(isset($request->segment_name)){
+        //     $result['segment_name'] = $request->segment_name;
+        // }
+        if(isset($request->segment_logic)){
+            $result['segment_logic'] = json_decode($request->segment_logic);
+        }
+        return $result;
+    }
+    public function store( SegmentRequest $request, SegmentRepository $segment )
     {
-        dd("hello World");
+        $input = $this->__processSegmentRequest($request);
+        return $segment->create($input);
     }
 
     /**
@@ -51,21 +63,11 @@ class SegmentController extends Controller
      * @param  \App\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function show(Segment $segment)
+    public function show(SegmentRepository $segment, $id)
     {
         //
+        return $segment->getById($id);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Segment  $segment
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(Segment $segment)
-    // {
-    //     //
-    // }
 
     /**
      * Update the specified resource in storage.
@@ -74,9 +76,10 @@ class SegmentController extends Controller
      * @param  \App\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Segment $segment)
+    public function update(SegmentRequest $request, SegmentRepository $segment, $id)
     {
-        //
+        $input = $this->__processSegmentRequest($request);
+        return $segment->update($input, $id);
     }
 
     /**
@@ -85,8 +88,8 @@ class SegmentController extends Controller
      * @param  \App\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Segment $segment)
+    public function destroy( SegmentRepository $segment, $id)
     {
-        //
+        return $segment->delete($id);
     }
 }

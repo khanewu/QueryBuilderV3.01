@@ -94,6 +94,9 @@
                         <input type="text" name="segment_name" placeholder="Enter Segment"><br>
                     </div>
                     <div class="row">
+                        <input type="text" name="segment_table" value="segments" placeholder="Enter Segment Table Name"><br>
+                    </div>
+                    <div class="row">
                         <input type="text" name="segment_logic" placeholder="Enter Segment Logic"><br>
                     </div>
                     {{-- <div class="row">

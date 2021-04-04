@@ -32,6 +32,7 @@ class SegmentRequest extends FormRequest
                 return [
                     // 'name' =>'required|string|unique:segments',
                     'segment_name' =>'required|string',
+                    'segment_table' =>'required|string',
 
                     'segment_logic' =>['required','string', new LogicIsSerialized]
 
