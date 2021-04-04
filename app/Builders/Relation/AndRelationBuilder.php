@@ -42,10 +42,9 @@ class  AndRelationBuilder implements RelationBuilderInterface{
             return $logic->build();
         }
         foreach($this->query as $value){
-            $str[] =
-            $str[] = $this->__buildLogicOrOrRelation($value);;
+            $str[] = $this->__buildLogicOrOrRelation($value);
         }
-        $str = $start. join(" AND ",$str) . $end;
-        return $str;
+        // dd($str);
+        return $start. join(" AND ",$str) . $end;
     }
 }

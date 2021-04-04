@@ -54,7 +54,8 @@ class SegmentController extends Controller
     public function store( SegmentRequest $request, SegmentRepository $segment )
     {
         $input = $this->__processSegmentRequest($request);
-        return $segment->create($input);
+        $result =  $segment->create($input);
+        return $result['query'];
     }
 
     /**

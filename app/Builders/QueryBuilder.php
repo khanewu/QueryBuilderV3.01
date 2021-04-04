@@ -17,17 +17,9 @@ class  QueryBuilder{
         $this->query= $queryArray;
     }
 
-    private function __build(){
-        $str ="" ;
-        foreach($this->query as $value){
-            $andRelation = new AndRelationBuilder($value , $this->columns);
-            $str = $str . " ".$andRelation->build();
-        }
-        return $str;
-    }
-
     public function generate($queryArray){
         $this->set($queryArray);
-        return $this->__build();
+        $andRelation = new AndRelationBuilder($this->query , $this->columns);
+        return $andRelation->build();
     }
 }
