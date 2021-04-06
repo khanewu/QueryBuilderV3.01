@@ -33,6 +33,8 @@ class SegmentRepository
             $segment->table = $segment_table;
             $segment->requested_segment_logic = json_encode($segment_logic);
             $segment->save();
+            // return $segment;
+            $segment->requested_segment_logic = json_decode($segment->requested_segment_logic);
             return $segment;
         }
         return false;
