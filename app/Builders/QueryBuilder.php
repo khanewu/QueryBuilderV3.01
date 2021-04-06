@@ -2,15 +2,17 @@
 namespace App\Builders;
 
 use App\Builders\Relation\AndRelationBuilder;
+use App\Repositories\SchemaRepository;
 
 class  QueryBuilder{
     private $query = [];
     private $string = "";
     private $columns = [];
 
-    public function __construct($segmentColumns)
+    public function __construct($table_name)
     {
-        $this->columns = $segmentColumns;
+        $tableSchema= new SchemaRepository($table_name);
+        $this->columns = $tableSchema->get();
     }
     public function set($queryArray)
     {

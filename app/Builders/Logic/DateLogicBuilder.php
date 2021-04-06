@@ -22,6 +22,7 @@ class  DateLogicBuilder{
         if($op === 'before'){return $this->setBefore($field, $value);}
         if($op === 'after'){return $this->setAfter($field, $value);}
         if($op === 'on or before'){return $this->onOrBefore($field, $value);}
+        if($op === 'on or after'){return $this->onOrAfter($field, $value);}
         if($op === 'between'){return $this->setBetween($field, $value);}
         return $this->setOn($field, $value);
     }
@@ -49,6 +50,12 @@ class  DateLogicBuilder{
         $value = " '".$value."' ";
         return $field.$op.$value;
     }
+    private function onOrAfter($field, $value){
+        $field = " DATE(".$field.") ";
+        $op = " <= ";
+        $value = " '".$value."' ";
+        return $field.$op.$value;
+    }
     private function setBetween($field, $value){
         $value= explode(',',$value);
         if(count($value)!==2){
@@ -60,7 +67,7 @@ class  DateLogicBuilder{
 
         $field = " DATE(".$field.") ";
         $op = " BETWEEN ";
-        $value = " |'".$start."' '".$end."'";
+        $value = " |'".$start."' AND '".$end."'";
         return $field.$op.$value;
 
     }

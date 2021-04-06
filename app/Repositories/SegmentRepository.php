@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+
 //use Your Model
 
 use App\Builders\QueryBuilder;
@@ -20,12 +21,9 @@ class SegmentRepository
     {
         extract($inputArray);
 
-        $tableSchema= new SchemaRepository($segment_table);
-        $columns = $tableSchema->get();
-
-        $queryBuilder = new QueryBuilder($columns);
+        $queryBuilder = new QueryBuilder($segment_table);
         // var_dump($columns);
-        if($query = $queryBuilder->generate($segment_logic, $columns)){
+        if($query = $queryBuilder->generate($segment_logic)){
 
             $query = 'SELECT * FROM '.$segment_table." WHERE ".$query;
 
