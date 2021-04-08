@@ -1,6 +1,7 @@
 # QueryBuilderV3.01
-You can check my last interview task. where I have to solve the below Problem.
-[PROBLEM Link: ](https://github.com/khanewu/QueryBuilderV3.01/blob/main/POSTMAN%20COLLECTON.zip)
+[PROBLEM Link: ](https://github.com/khanewu/QueryBuilderV3.01/blob/main/Candidate_question_L1.1617275197.pdf)
+You can check my last interview task. where I have to solve the below Problem maintaining Design Pattern.
+
 
 ###input 
 
