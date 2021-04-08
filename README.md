@@ -1,4 +1,6 @@
 # QueryBuilderV3.01
+You can check my last interview task. where I have to solve the below Problem.
+[PROBLEM Link: ](https://github.com/khanewu/QueryBuilderV3.01/blob/main/POSTMAN%20COLLECTON.zip)
 
 ###input 
 
